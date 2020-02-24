@@ -1,0 +1,17 @@
+---
+- name: Set use_rhcos_image_cache to true if download_rhcos_images is true
+  set_fact:
+    use_rhcos_image_cache: true
+  when: download_rhcos_images == true
+
+- include_role:
+    name: node-prep
+    tasks_from: 10_validation
+
+- include_role:
+    name: installer
+    tasks_from: "{{ item }}"
+  with_items:
+    - 10_get_oc
+    - 20_extract_installer
+    - 23_rhcos_image_paths

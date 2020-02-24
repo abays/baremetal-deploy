@@ -1,0 +1,5 @@
+---
+# defaults file for cache
+cache_storage_location: "{{ ansible_env.HOME }}/image_cache/"
+download_rhcos_images: false
+release_url: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp-dev-preview"

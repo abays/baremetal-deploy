@@ -1,0 +1,34 @@
+---
+- name: Start RHCOS cache container
+  podman_container:
+    name: rhcos_image_cache
+    image: httpd
+    state: started
+    exposed_ports:
+      - 80
+    volumes:
+      - "{{ cache_storage_location }}:/usr/local/apache2/htdocs"
+    network: host
+  become: yes
+  # environment:
+  #   - DOCKER_HOST: "tcp://localhost:2376"
+
+# - name: Check if cache container is already running
+#   docker_container_info:
+#     name: mydata
+#   register: cache_container
+#   become: yes
+
+# - name: Check if cache container is already running
+#   shell: podman ps | grep rhcos_image_cache
+#   register: cache_container
+#   become: yes
+
+# - name: Start RHCOS cache container
+#   shell: |
+#     podman run -d --name "rhcos_image_cache" --net=host \
+#             -v "{{ cache_storage_location }}:/usr/local/apache2/htdocs" \
+#             -p 80:80/tcp \
+#             --expose=80/tcp --cap-add=NET_ADMIN httpd
+#   become: yes
+#   when: not cache_container.exists

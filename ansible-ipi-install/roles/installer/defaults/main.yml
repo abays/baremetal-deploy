@@ -1,3 +1,4 @@
 ---
 # defaults file for installer
-use_rhcos_image_cache: false
+cache_url: ''
+use_rhcos_image_cache: true

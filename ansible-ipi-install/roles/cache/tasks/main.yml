@@ -1,0 +1,5 @@
+---
+- include_tasks: 00_start.yml
+- include_tasks: 10_download_rhcos_images.yml
+  when: download_rhcos_images == true
+- include_tasks: 20_rhcos_cache_container.yml

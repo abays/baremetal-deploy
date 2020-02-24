@@ -18,5 +18,15 @@
 - name: Set Fact for RHCOS_QEMU_URI (4.4+ and for cache only)
   set_fact:
     rhcos_qemu_uri: "{{ rhcos_json.json | json_query('images.qemu.path') }}"
-  when: ((release_version[0]|int > 4) or (release_version[2]|int > 3)) and use_rhcos_image_cache == true
+  #when: ((release_version[0]|int > 4) or (release_version[2]|int > 3)) and use_rhcos_image_cache == true
+  when: use_rhcos_image_cache == true
+
+- name: Set fact for RHCOS_QEMU_SHA256 (4.4+ only)
+  set_fact:
+    rhcos_qemu_sha256: '{{ rhcos_json.json | json_query(''images.qemu."uncompressed-sha256"'') }}'
+  #when: (release_version[0]|int > 4) or (release_version[2]|int > 3)
+
+- name: Set fact for RHCOS_SHA256
+  set_fact:
+    rhcos_sha256: "{{ rhcos_json.json | json_query('images.openstack.sha256') }}"
   
